@@ -20,21 +20,23 @@ function createEntry(author, quote) {
 const API_URL = "https://api.quotable.io/quotes/random?limit=5";
 var data = [];
 
-async function initQuotes() {
+function initQuotes() {
     if (localStorage.getItem("data") != null)
-        data = JSON.parse(localStorage.getItem("data"))
-    else await fetchQuotes()
-    populateEntries()
+    {
+        data = JSON.parse(localStorage.getItem("data"));
+        populateEntries();
+    }
+    else fetchQuotes();
 }
 
-// loads more entries and append to store.
-// return newly fetched entries.
-async function fetchQuotes() {
-    let res = await fetch(API_URL);
-    let ents = await res.json();
-    data = data.concat(ents);
-    localStorage.setItem("data", JSON.stringify(data));
-    return ents;
+function fetchQuotes() {
+    fetch(API_URL).then(res => {
+        res.json().then(ents => {
+            data = data.concat(ents);
+            populateEntries(ents);
+            localStorage.setItem("data", JSON.stringify(data));
+        });
+    });
 }
 
 // add entries to dom. render $ents if specified,
@@ -58,10 +60,9 @@ function handleClear (event)
     localStorage.removeItem("data");
 }
 
-async function handleLoad (event)
+function handleLoad (event)
 {
-    let ents = await fetchQuotes();
-    populateEntries(ents);
+    fetchQuotes();
 }
 
 initQuotes();
