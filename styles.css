@@ -1,0 +1,19 @@
+#container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.entry {
+    background-color: lightgray;
+    padding: 5px 20px;
+}
+
+.author {
+    font-weight: bold;
+}
+
+footer {
+    text-align: center;
+}
