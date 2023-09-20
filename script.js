@@ -1,3 +1,15 @@
+/**
+ * @typedef {Object} Quote
+ * @property _id {String}
+ * @property author {String}
+ * @property content {String}
+ * @property tags {String[]}
+ * @property authorSlug {String}
+ * @property length {Number}
+ * @property dateAdded {String}
+ * @property dateModified {String}
+*/
+
 var container = document.getElementById("container");
 
 function createEntry(author, quote) {
