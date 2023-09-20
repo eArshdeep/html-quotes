@@ -10,6 +10,13 @@
  * @property dateModified {String}
 */
 
+/**
+ * Tracks whether placeholder cards are rendered.
+ * Set to false on when first batch of entries is rendered.
+ * @type {Boolean}
+*/
+var placeholdersShown = true;
+
 var container = document.getElementById("container");
 
 function createEntry(author, quote) {
@@ -51,10 +58,20 @@ function fetchQuotes() {
     });
 }
 
-// add entries to dom. render $ents if specified,
-// otherwise render whole of $data.
-function populateEntries(ents) {
-    (ents || data).forEach(entry => {
+/**
+ * Render quote entries on the DOM.
+ * 
+ * Renders `entries` if not null, otherwise `data` entries.
+ * 
+ * @param {Quote[]} [entries] Optional entries to render.
+ */
+function populateEntries(entries) {
+    if (placeholdersShown)
+    {
+        clearEntries();
+        placeholdersShown = false;
+    }
+    (entries || data).forEach(entry => {
         createEntry(entry.author, entry.content);
     });
 }
