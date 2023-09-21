@@ -152,4 +152,27 @@ function handleSave(entry, saveBtn, quote) {
     }
 }
 
+/**
+ * Handle clear saves button being pressed.
+ * 
+ * Removes styles on entries and clears memory and localStorage
+ * store.
+ */
+function handleClearSaves()
+{
+    let savedEntries = Array.from(document.getElementsByClassName("saved"));
+    for (let i = 0; i < savedEntries.length; i++)
+        savedEntries[i].classList.remove("saved");
+    
+    let saveBtns = document.getElementsByClassName("save");
+    for (let i = 0; i < savedEntries.length; i++)
+    {
+        if (saveBtns[i].textContent == SAVED)
+            saveBtns[i].textContent = UNSAVED;
+    }
+    
+    saved = [];
+    localStorage.removeItem("saved");
+}
+
 initQuotes();
