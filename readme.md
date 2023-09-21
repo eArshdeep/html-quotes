@@ -7,3 +7,12 @@ A user can click to load more or clear all quotes. Local browser storage is used
 ## Demo
 
 ![Demo](media/demo.gif)
+
+## Some Highlights
+
+### Placeholder Cards
+
+Skeleton placeholder cards are shown and animated to shimmer whilst
+the initial API call loads the first batch of quotes.
+
+![Shimmering Placeholders Demo](media/shimmering-placeholders.gif)
