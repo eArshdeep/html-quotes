@@ -175,4 +175,57 @@ function handleClearSaves()
     localStorage.removeItem("saved");
 }
 
+/**
+ * Uses `saved` to generate a string representation of saved quotes to download.
+ * 
+ * Format may look like the following and is included as the first entry in the return string:
+ * 
+ *      <id>
+ *      <author>
+ *      <quote>
+ *      ...
+ * 
+ * @returns {String} Formatted string of saved quotes.
+ */
+function getSavedDownloadableString()
+{
+    let string = "";
+    string += "<id>\n";
+    string += "<author>\n";
+    string += "<content>\n\n";
+
+    saved.forEach(id => {
+        let quote = data.filter(q => q._id == id)[0];
+        if (quote == undefined) return;
+        string += quote._id + "\n";
+        string += quote.author + "\n";
+        string += quote.content + "\n\n";
+    });
+    return string.slice(0, string.length-1);
+}
+
+/**
+ * Handler for "Download Saves" button.
+ * 
+ * Causes saved quotes to be downloaded as a text file in a prettied format.
+ * 
+ * @see {@link getSavedDownloadableString} for the download file format.
+ */
+function handleDownloadSaves()
+{
+    if ((saved.length) == 0)
+    {
+        alert("No quotes saved to download!");
+        return;
+    }
+    
+    let download = "data:text/plain;charset=utf-8," + encodeURIComponent(getSavedDownloadableString());
+    
+    let anchor = document.createElement('a');
+    anchor.setAttribute("href",  download);
+    anchor.setAttribute("download", "quotes.txt");    
+    anchor.click();
+    anchor.remove();
+}
+
 initQuotes();
